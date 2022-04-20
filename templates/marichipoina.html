@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+{% include 'header.html' %}
+<form action="newpass" method="post">
+<table>
+<tr>
+<td> <label for="New Password">New Password:</label></td>
+</tr>
+<tr><td></td></tr>
+<tr>
+<td>  <input style="text-align:center; color:orange; padding:5px; border-radius:2px;border-style: dotted;"   placeholder="New Password:" type="password"  name="newpassword"></td>
+</tr>
+<tr>
+<td> <label for="New Password">Confirm Password:</label></td>
+</tr>
+<tr>
+<td>  <input style="text-align:center; color:orange; padding:5px; border-radius:2px;border-style: dotted;"   placeholder="Confirm Password:" type="password"  name="cpassword"></td>
+</tr>
+<tr>
+<td>  <input style="text-align:center; color:orange; padding:5px; border-radius:2px;border-style: dotted;"    type="submit" ></td>
+</tr>
+</table>
+</form>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OTP</title>
+    <style>
+/* unvisited link */
+a:link {
+  color: red;
+}
+
+/* visited link */
+a:visited {
+  color: green;
+}
+
+/* mouse over link */
+a:hover {
+  color: hotpink;
+}
+
+/* selected link */
+a:active {
+  color: blue;
+}
+</style>
+</head>
+<body>
+{% include 'header.html' %}
+<h3> {% for key, value in form.items() %}
+
+    {%
+    if(key=="name")
+     %}
+
+    <h3 style="color:green">Mr.{{ value  }}... </h3>
+
+    {% endif %}
+    {% if(key=="email") %}
+     <h3 style="color:green">We have sended an otp to {{value}}.. please enter OTP here </h3>
+     {% endif %}
+
+
+
+    {% endfor %}
+
+<form action="otp" method="post">
+    <input type="text" name="votp" placeholder="Enter OTP"/>
+        <input type="submit" value="Submit otp">
+        </form>
+</body>
+</html>

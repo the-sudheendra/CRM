@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% set name  =request.cookies.get('name') %}
+        {% set email =request.cookies.get('email') %}
+        {% set mobile =request.cookies.get('mobile') %}
+    {% set state =request.cookies.get('state') %}
+    {% set  gender=request.cookies.get('gender') %}
+    {% set address =request.cookies.get('address') %}
+    {% set dob =request.cookies.get('dob') %}
+
+
+    <title>{{name}}</title>
+
+
+</head>
+<style>
+    .styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+
+</style>
+<body>
+{% include "header.html" %}
+<!--<table>-->
+<!--    <tr><td>Name</td><td></td></tr>-->
+<!--        <tr><td>Eamil</td><td>{{email}}</td></tr>-->
+<!--        <tr><td>Mobile</td><td>{{mobile}}</td></tr>-->
+<!--    <tr><td>State</td><td>{{state}}</td></tr>-->
+<!--    <tr><td>Gender</td><td>{{gender}}</td></tr>-->
+<!--    <tr><td>Address</td><td>{{address}}</td></tr>-->
+<!--        <tr><td>Dob</td><td>{{dob}}</td></tr>-->
+
+
+
+<!--</table>-->
+<table class="styled-table" style="margin-left:17%;margin-top:5%;">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Eamil</th>
+            <th>Mobile</th>
+             <th>State</th>
+             <th>Gender</th>
+             <th>Address</th>
+             <th>Date Of Birth:</th>
+
+
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="active-row">
+            <td>{{name}}</td>
+            <td>{{email}}</td>
+            <td>{{mobile}}</td>
+             <td>{{state}}</td>
+            <td>{{gender}}</td>
+             <td>{{address}}</td>
+             <td>{{dob}}</td>
+            <td><a href="profile_update">Update Profile</a></td>
+
+
+        </tr>
+
+        <!-- and so on... -->
+    </tbody>
+</table>
+
+
+<table class="styled-table" style="margin-left:17%;margin-top:5%;">
+    {% if journey!="None" %}
+    <thead>
+        <tr>
+            <th>Start Date</th>
+                         <th>End Date</th>
+
+            <th>Starting Point</th>
+             <th>Destination</th>
+
+
+
+
+        </tr>
+    </thead>
+    <tbody>
+    <tr><td>Coustemer s journey</td></tr>
+{% for i in journey %}
+        <tr class="active-row">
+            <td>{{journey[0][2]}}</td>
+            <td>{{journey[0][3]}}</td>
+             <td>{{journey[0][4]}}</td>
+            <td>{{journey[0][5]}}</td>
+             <td>{{journey[0][6]}}</td>
+
+
+{% endfor %}
+
+        </tr>
+
+        <!-- and so on... -->
+    </tbody>
+</table>
+<table>
+{% else %}
+<tr><td><h2>You not booked yet</h2></td></tr>
+{% endif %}
+    </table>
+</body>
+</html>

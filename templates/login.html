@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+.center
+{
+margin-top:10%;
+margin-left:25%;
+border-style: solid;
+margin-right:40%;
+padding:40px;
+border-radius:5px;
+color:green;
+}
+
+</style>
+<meta charset="ISO-8859-1">
+<title>Login-Page</title>
+</head>
+<body>
+{% include 'header.html' %}
+<div class="center">
+<h3 style="text-align:center">Login Form</h3>
+<form action="log" method="post">
+<table>
+<tr>
+<td> <label for="Email"> Email:</label></td>
+</tr>
+<tr>
+<td>  <input style="text-align:center; color:orange; padding:5px; border-radius:2px;border-style: dotted;"   placeholder="Eamil" type="email"  name="email" required></td>
+</tr>
+<tr><td></td></tr>
+<tr>
+<td>  <label for="password"> Password:</label></td>
+</tr>
+<tr>
+<td>  <input  style="text-align:center; color:orange; padding:5px; border-radius:2px;border-style: dotted;" type="password"  placeholder="Password" name="password" required></td>
+</tr>
+<tr>
+<td><input type="submit" value="Submit"></td>
+</tr>
+<tr>
+<td><a href='register'>Register here...</a></td>
+<td><a href='forgot'>Forgot Password...</a></td>
+</tr>
+</table>
+
+</form>
+
+</div>
+</body>
+</html>

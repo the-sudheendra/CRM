@@ -1,0 +1,72 @@
+<style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 40%;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.card {
+  padding: 2px 16px;
+display: inline-block;
+}
+.container
+{
+}
+
+</style>
+</head>
+<body>
+{% include 'header.html' %}
+{% if request.cookies.get('name')!=""  %}
+                  {% set name = request.cookies.get('name') %}
+                    {% set email = request.cookies.get('email') %}
+                    {% set mobile = request.cookies.get('mobile') %}
+                    {% set state = request.cookies.get('state') %}
+                    {% set address = request.cookies.get('address') %}
+                    {% set dob = request.cookies.get('dob') %}
+                    {% set start = request.cookies.get('start') %}
+                    {% set end = request.cookies.get('end') %}
+                    {% set start_date = request.cookies.get('start_date') %}
+                    {% set end_date = request.cookies.get('end_date') %}
+
+
+            {% endif %}
+<h2 style="text-align:center;"> Available Cars from {{start}} to {{end}}</h2>
+
+<div  style="margin:3%" class="card">
+  <img src="https://www.jcrcab.com/wp-content/uploads/2020/02/jodhpur-taxi.jpg" alt="car-1" style="width:100%">
+  <div class="container">
+    <h4><b>Car1</b></h4>
+
+    <p>Driver: sandeep</p>
+      <a href="book">Book now</a>
+  </div>
+</div>
+<div  style="margin:3%" class="card">
+  <img src="https://www.jcrcab.com/wp-content/uploads/2020/02/jodhpur-taxi.jpg" alt="car-1" style="width:100%">
+  <div class="container">
+    <h4><b>Car1</b></h4>
+
+    <p>Driver: Satwik</p>
+            <a href="book">Book now</a>
+
+  </div>
+</div>
+<div  style="margin:3%" class="card">
+  <img src="https://cmsimages.tribuneindia.com/gallary_content/2020/5/Desk/2020_5$largeimg_104696139.jpg" alt="car-2" style="width:100%">
+  <div class="container">
+    <h4><b>Car2</b></h4>
+
+    <p>Driver: Hemanth</p>
+            <a href="book">Book now</a>
+
+
+  </div>
+</div>
+
+</body>
+</html>
