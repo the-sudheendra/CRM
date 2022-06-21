@@ -1,0 +1,173 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;400&display=swap");
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Raleway", sans-serif;
+}
+
+
+/* body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(77, 121, 255);
+} */
+
+.login {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -53%);
+    width: 400px;
+    height: 400px;
+    text-align: center;
+    background-color: white;
+    padding: 2%;
+    border-radius: 5px;
+    font-family: "Raleway", sans-serif;
+}
+
+.l-buttons {
+    width: 100%;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.l-buttons button {
+    display: inline-block;
+    width: 50%;
+    height: 40px;
+    margin-top: 25px;
+    padding: 10px;
+}
+
+.login-btn {
+    background-color: rgb(77, 121, 255);
+}
+
+.l-buttons button:hover {}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-form input {
+    width: 95%;
+    padding: 10px;
+}
+
+.input-element[type="email"] {
+    padding: 10px;
+    margin-bottom: 25px;
+}
+
+.login-form .button {
+    background: orange;
+    width: 100%;
+    padding: 10px;
+}
+
+.input-fields {}
+
+.forgot {
+    padding: 10px;
+    margin-bottom: 25px;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 480px) {
+    .login {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -40%);
+        width: 80%;
+        height: 400px;
+        text-align: center;
+        background-color: white;
+        padding: 2%;
+        border-radius: 5px;
+        font-family: "Raleway", sans-serif;
+    }
+}
+
+.signup-form input {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 25px;
+}
+
+.signup-form .button {
+    background: orange;
+    width: 100%;
+    padding: 10px;
+}
+
+.arr {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.arr .error-msg {
+    display: none;
+    position: absolute;
+    top: 70%;
+    color: red;
+}
+
+.input-element-1 {
+    position: relative;
+}
+
+.input-element-2 {
+    position: relative;
+}
+
+.check_circle {
+    position: absolute;
+    left: 42%;
+    bottom: 30px;
+}
+
+.none {
+    display: none;
+    color: #000;
+}
+
+.error-msg {
+    display: none;
+}
+
+select {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 25px;
+}
+
+.container {
+    float: left;
+    width: 50%;
+    height: 100vh;
+    background-size: cover;
+    background-image: url("img2.jpg");
+    background-repeat: no-repeat;
+}
+
+.container-2 {
+    float: right;
+    width: 50%;
+    height: 100vh;
+    background-size: cover;
+    background-image: url("img1.jpg");
+    background-repeat: no-repeat;
+}

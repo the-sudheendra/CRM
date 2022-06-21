@@ -1,52 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>OTP</title>
-    <style>
-/* unvisited link */
-a:link {
-  color: red;
-}
-
-/* visited link */
-a:visited {
-  color: green;
-}
-
-/* mouse over link */
-a:hover {
-  color: hotpink;
-}
-
-/* selected link */
-a:active {
-  color: blue;
-}
-</style>
-</head>
-<body>
-{% include 'header.html' %}
-<h3> {% for key, value in form.items() %}
-
-    {%
-    if(key=="name")
-     %}
-
-    <h3 style="color:green">Mr.{{ value  }}... </h3>
-
-    {% endif %}
-    {% if(key=="email") %}
-     <h3 style="color:green">We have sended an otp to {{value}}.. please enter OTP here </h3>
-     {% endif %}
+<html>
+  <head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+       <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+      <style>
 
 
-
-    {% endfor %}
-
-<form action="otp" method="post">
-    <input type="text" name="votp" placeholder="Enter OTP"/>
-        <input type="submit" value="Submit otp">
-        </form>
-</body>
+      body {
+        text-align: center;
+        padding: 40px 0;
+        background: #EBF0F5;
+      }
+        h1 {
+          color: #88B04B;
+          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+          font-weight: 900;
+          font-size: 40px;
+          margin-bottom: 10px;
+        }
+        p {
+          color: #404F5E;
+          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+          font-size:20px;
+          margin: 0;
+        }
+      i {
+        color: #9ABC66;
+        font-size: 100px;
+        line-height: 200px;
+        margin-left:-15px;
+      }
+      .card {
+        background: white;
+        padding: 60px;
+        border-radius: 4px;
+        box-shadow: 0 2px 3px #C8D0D8;
+        display: inline-block;
+        margin: 0 auto;
+      }
+    </style>
+    <body>
+      <div class="card">
+      <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
+      <i class="checkmark">✓</i>
+      </div>
+        <h1>Success</h1>
+        <p>Success fully created account <br/> Please login <a href="/login">login here</a></p>
+      </div>
+    </body>
 </html>

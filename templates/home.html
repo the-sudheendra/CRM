@@ -95,7 +95,7 @@ body{
 
 
   </div>
-  
+
   -->
 
 
@@ -1388,9 +1388,11 @@ W<option>est Siang</option>
 <option>Zunheboto</option>
  </select>
  </td></tr>
-      <tr><td><label>Pickup Date</label></td><td><label>Pickup Time</label></td></tr>
-       <tr><td><input type="date" name="start_date" placeholder="Start date"required></td><td> <input type="date" name="end_date" placeholder="End date" required></td></tr>
-       <tr><td><input type="submit" value="Serch cars"/></td></tr>
+      <tr><td><label>Arrival </label></td><td><label>Departure </label></td></tr>
+       <tr><td><input type="date" name="start_date" placeholder="Start date"    min="2022-06-22" max="2022-07-22" required></td>
+         <td> <input type="date" name="end_date" placeholder="End date" min="2022-06-22" max="2022-07-22" required> </td></tr>
+       <tr>
+       <td> <input type="submit" value="Serch cars"/></td></tr>
 
           </table>
 {% elif name=="" %}
@@ -1405,5 +1407,6 @@ W<option>est Siang</option>
 
 
   </body>
+{% include "footer.html" %}
 
 </html>

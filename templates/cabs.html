@@ -16,7 +16,14 @@ display: inline-block;
 .container
 {
 }
-
+.message
+{
+margin:20px;
+padding:10px;
+display:flex;
+justify-content:center;
+align-items:center;
+}
 </style>
 </head>
 <body>
@@ -35,38 +42,33 @@ display: inline-block;
 
 
             {% endif %}
-<h2 style="text-align:center;"> Available Cars from {{start}} to {{end}}</h2>
 
-<div  style="margin:3%" class="card">
-  <img src="https://www.jcrcab.com/wp-content/uploads/2020/02/jodhpur-taxi.jpg" alt="car-1" style="width:100%">
-  <div class="container">
-    <h4><b>Car1</b></h4>
+<h2 style="text-align:center;"> showing Results from {{start}} ➡ {{end}} </h2>
 
-    <p>Driver: sandeep</p>
-      <a href="book">Book now</a>
+{% if c==0 %}
+<div class="message">
+<h1>Sorry 🙇‍♂ currently no drivers are available in {{ start }} </h1>
+
+  <h1> for any queries <a style=" font-size:10px;" href="contact">contact us</a></h1>
   </div>
-</div>
+{% endif %}
+{% for i in emp_avb %}
 <div  style="margin:3%" class="card">
-  <img src="https://www.jcrcab.com/wp-content/uploads/2020/02/jodhpur-taxi.jpg" alt="car-1" style="width:100%">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE3ZiLfUvnOL1xtA0C3QepRLL89GRlNq6iVA&usqp=CAU" alt="car-2" style="width:100%">
   <div class="container">
-    <h4><b>Car1</b></h4>
+    <h4><b>{{i[0]}} with {{i[3]}} years of experience</b></h4>
 
-    <p>Driver: Satwik</p>
-            <a href="book">Book now</a>
+    <p>Car number: {{i[5]}}</p>
+    <p> Experience : {{i[3]}}</p>
 
-  </div>
-</div>
-<div  style="margin:3%" class="card">
-  <img src="https://cmsimages.tribuneindia.com/gallary_content/2020/5/Desk/2020_5$largeimg_104696139.jpg" alt="car-2" style="width:100%">
-  <div class="container">
-    <h4><b>Car2</b></h4>
-
-    <p>Driver: Hemanth</p>
             <a href="book">Book now</a>
 
 
   </div>
 </div>
+{% endfor %}
 
+{% include "footer.html" %}
 </body>
+
 </html>

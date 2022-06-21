@@ -93,7 +93,6 @@ h1 {letter-spacing: 6px}
 
         <!-- and so on... -->
     </tbody>
-           <a href="edit_employees"> Edit Details </a>
 </table>
     </div>
   </div>
@@ -110,8 +109,7 @@ h1 {letter-spacing: 6px}
             <th>Password</th>
              <th>Mobile</th>
              <th>State</th>
-            <th>Gender</th>
-            <th>Date Of Birth</th>
+
             <th>Address</th>
 
 
@@ -131,9 +129,7 @@ h1 {letter-spacing: 6px}
             <td>{{i[2]}}</td>
              <td>{{i[3]}}</td>
             <td>{{i[4]}}</td>
-             <td>{{i[5]}}</td>
-                         <td>{{i[6]}}</td>
-             <td>{{i[7]}}</td>
+              <td>{{i[5]}}</td>
 
 
             {% endfor %}
@@ -152,11 +148,11 @@ h1 {letter-spacing: 6px}
   </div>
     <div class="w3-padding-32">
 <h1>Add New Employee</h1>
-                <input class="w3-bar-item w3-button" name="name" type="text" placeholder="Name"/>
-                        <input class="w3-bar-item w3-button" name="email" type="email" placeholder="Email"/>
-        <input class="w3-bar-item w3-button"  type="text" name="phno" placeholder="Phno"/>
-                <input class="w3-bar-item w3-button"  type="text" name="exp" placeholder="Driver Experience "/>
-        <input class="w3-bar-item w3-button"  type="text" name="carnumber" placeholder="Car Number "/>
+                <input class="w3-bar-item w3-button" name="name" type="text" placeholder="Name" required/>
+                        <input class="w3-bar-item w3-button" name="email" type="email" placeholder="Email" required/>
+        <input class="w3-bar-item w3-button"  type="text" name="phno" placeholder="Phno" required/>
+                <input class="w3-bar-item w3-button"  type="text" name="exp" placeholder="Driver Experience " required/>
+        <input class="w3-bar-item w3-button"  type="text" name="carnumber" placeholder="Car Number " required/>
 
 
         <select name="city" required>

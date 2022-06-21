@@ -1,27 +1,34 @@
 from flask import *
 from flask_mysqldb import MySQL
-from flask_mail import *
+# from flask_mail import *
+import mysql.connector
+mydb = mysql.connector.connect(
+  host="database-1.ckmwbrm2zkd4.us-east-1.rds.amazonaws.com",
+  user="admin",
+  password="yourpassword"
+)
+
+
 import random
 
-import values
 
 app = Flask(__name__)
 # data base connection configuration.............................
-app.config['MYSQL_USER'] = "root"
-app.config['MYSQL_PASSWORD'] = "Kanna@123456"
-app.config['MYSQL_HOST'] = "localhost"
+app.config['MYSQL_USER'] = "admin"
+app.config['MYSQL_PASSWORD'] = "Kanna123456"
+app.config['MYSQL_HOST'] = "database-1.ckmwbrm2zkd4.us-east-1.rds.amazonaws.com"
 app.config['MYSQL_DB'] = "car_renter_management"
 mysql = MySQL(app)
 # -------------------------------------------------------------
 # MAil send configuaration configuration .....................
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = "190330141@klh.edu.in"
-app.config['MAIL_PASSWORD'] = "63009772252701"
-
-mail = Mail(app)
+# app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+# app.config['MAIL_PORT'] = 465
+# app.config['MAIL_USE_TLS'] = False
+# app.config['MAIL_USE_SSL'] = True
+# app.config['MAIL_USERNAME'] = "190330141cse@gmail.com"
+# app.config['MAIL_PASSWORD'] = "Kanna@123456"
+#
+# mail = Mail(app)
 
 
 @app.route('/')
@@ -32,11 +39,8 @@ def index():
     if (name == None):
         email = ""
         name = ""
-    print("name" + name)
-
     res = make_response(render_template('home.html', name=name, email=email))
     return res
-
 
 @app.route('/login')
 def login():
@@ -88,12 +92,11 @@ def profile_submit():
         EMAIL = request.cookies.get('email')
         MOBILE = request.form['mobile']
         STATE = request.form['state']
-        GENDER = request.form['gender']
         ADDRESS = request.form['address']
-        DOB = request.form['dob']
+
     cur = mysql.connection.cursor()
-    cur.execute("update coustemers set Name=%s,Mobile=%s,State=%s,Gender=%s,Date_Of_Birth=%s,address=%s where Email=%s",
-                (NAME, MOBILE, STATE, GENDER, DOB, ADDRESS, EMAIL))
+    cur.execute("update coustemers set Name=%s,Mobile=%s,State=%s,address=%s where Email=%s",
+                (NAME, MOBILE, STATE,  ADDRESS, EMAIL))
     mysql.connection.commit()
     res = make_response(render_template('home.html'))
     res.set_cookie("email", EMAIL)
@@ -101,16 +104,16 @@ def profile_submit():
 
     res.set_cookie("mobile", MOBILE)
     res.set_cookie("state", STATE)
-    res.set_cookie("gender", GENDER)
+
     res.set_cookie("address", ADDRESS)
-    res.set_cookie("dob", DOB)
+
 
     return res
 
 
 @app.route('/is_admin', methods=['POST', 'GET'])
 def is_admin():
-    res = "Please enter right"
+    res = ""
     if (request.method == 'POST'):
 
         form = request.form
@@ -133,19 +136,28 @@ def is_admin():
 
 @app.route('/cabs', methods=['POST', 'GET'])
 def cabs():
-    res = make_response(render_template('cabs.html'))
     if (request.method == 'POST'):
         form = request.form
         start = form['start']
         end = form['end']
         start_date = form['start_date']
         end_date = form['end_date']
+
+        cur = mysql.connection.cursor()
+
+        cur.execute("select * from employees where city = "+"\""+ start+"\" ")
+        emp_avb = cur.fetchall()
+        cur.close()
+        res = make_response(render_template('cabs.html',emp_avb=emp_avb,c=len(emp_avb)))
         res.set_cookie('start', start)
         res.set_cookie('end', end)
         res.set_cookie('start_date', start_date)
         res.set_cookie('end_date', end_date)
+        return res
+    return "<h1> error </h1>"
 
-    return res
+
+
 
 
 @app.route('/contacting', methods=['GET', 'POST'])
@@ -162,45 +174,9 @@ def contacting():
         mysql.connection.commit()
         cur.close()
 
-        msg = f"Mr. {name} we received your concern\n '{msg}' \n we will solve as soon as possible"
-        message = Message("We Received your concern", sender='190330141@kh.edu.in', recipients=[email])
-        message.body = str(msg)
-
-        mail.send(message)
         return res
 
 
-"""
-def convertToBinaryData(filename):
-    # Convert digital data to binary format
-    with open(filename, 'rb') as file:
-        binaryData = file.read()
-    return binaryData
-
-
-def insertBLOB(name, email, mobile, experience, city, photo):
-    print("Inserting BLOB into python_employee table")
-    
-                connection = mysql.connector.connect(host='localhost',
-                                                     database='car_renter_management',
-                                                     user='root',
-                                                     password='Kanna@123456')
-                
-
-    cursor = mysql.connection.cursor()
-    sql_insert_blob_query =INSERT INTO employees
-                                  ( name, email,mobile,experience,city, photo) VALUES (%s,%s,%s,%s,%s,%s)
-
-    ephoto = convertToBinaryData(photo)
-
-    # Convert data into tuple format
-    cursor=mysql.connection.cursor()
-    insert_blob_tuple = (name, email, mobile, experience, city, ephoto)
-    result = cursor.execute(sql_insert_blob_query, insert_blob_tuple)
-    mysql.connection.commit()
-
-    print("Image and file inserted successfully as a BLOB into python_employee table", result)
-"""
 
 
 @app.route('/uploding', methods=['GET', 'POST'])
@@ -285,93 +261,113 @@ user_details = []
 @app.route('/reg', methods=['GET', 'POST'])
 def reg():
     try:
+        user_details = []
         if (request.method == 'POST'):
             print("52")
 
             form = request.form
             user_details.append(form['name'])
+            print("293")
+
 
             user_details.append(form['email'])
+
+
             user_details.append(form['password'])
+
+            print("301")
+
             user_details.append(form['mobile'])
+
             user_details.append(form['state'])
-            user_details.append(form['gender'])
-            user_details.append(form['dob'])
+
+
+
+
+
             user_details.append(form['address'])
-
-            user_details.append(random.randint(10000, 100000))
-
-            subject = "OTP Verification"
-
-            msg = f"Mr. {user_details[0]} Please enter this  otp in car renter management \n your otp is: {user_details[8]}"
-            message = Message(subject, sender='190330141@kh.edu.in', recipients=[user_details[1]])
-
-            message.body = str(msg)
-
-            mail.send(message)
-            print("71")
-            return render_template('verify.html', form=form)
-        else:
-            print("76")
-            return render_template("not_successfully.html")
-    except:
-        return "<h3 style='color:red'> Mr. " + user_details[0] + " you have already register with email " + + \
-            user_details[1] + "</h3> "
+            print("312")
 
 
-@app.route("/otp", methods=['GET', 'POST'])
-def otp():
-    print("in otp")
-    try:
-        if (request.method == 'POST'):
-            print("in post")
-            votp = request.form['votp']
+            print(user_details)
+
+
+
+            print("319")
+
+            # msg = f"Mr. {user_details[0]} Please enter this  otp in car renter management \n your otp is: {user_details[6]}"
+            # message = Message(subject, sender='190330141@klh.edu.in', recipients=[user_details[1]])
+            # print("320")
+            # message.body = str(msg)
+            # print(322)
+            #
+            # mail.send(message)
+            # print("71")
             name = user_details[0]
             email = user_details[1]
             password = user_details[2]
             mobile = user_details[3]
             state = user_details[4]
-            gender = user_details[5]
-            dob = user_details[6]
-            address = user_details[7]
-
-            otp = user_details[8]
-
+            print("303")
+            address = user_details[5]
             cur = mysql.connection.cursor()
-            print(type(otp))
-            print(type(votp))
-            print(str(otp) + " " + votp)
-            print(user_details[0])
-            print(user_details[1])
-            print(user_details[2])
-            print(user_details[3])
-            print(user_details[4])
-            print(user_details[5])
-            print(user_details[6])
-            print(user_details[7])
-            print(user_details[8])
-
-            if otp == int(votp):
-                cur.execute("insert into  coustemers values(%s,%s,%s,%s,%s,%s,%s,%s)",
-                            (name, email, password, mobile, state, gender, dob, address))
-                mysql.connection.commit()
-                cur.close()
-                res = """
-                <h3 style="color:green">Registration done Successfully..............</h3>
-                <a href="login">Login here</a>
-                """
-                return res
-
-
-            else:
-                return "<h3 style='color:red'>Please enter Right Otp..</h3>"
+            print("306")
+            cur.execute("insert into  coustemers values(%s,%s,%s,%s,%s,%s)",
+                        (name, email, password, mobile, state, address))
+            mysql.connection.commit()
+            cur.close()
+            print("311")
+            return render_template('verify.html', form=form)
+        else:
+            print("76")
+            return render_template("not_successfully.html")
     except:
-        return "<h3 style='color:red'> Mr. " + user_details[0] + " you have already register with email " + \
-               user_details[1] + "</h3>"
+        return "<h3 style='color:red'>  some thing went wrong 😒</h3> "
 
+
+# @app.route("/otp", methods=['GET', 'POST'])
+# def otp():
+#     print("in otp")
+#     try:
+#         if (request.method == 'POST'):
+#             print("in post")
+#             votp = request.form['votp']
+#
+#
+#             otp = user_details[6]
+#
+#             cur = mysql.connection.cursor()
+#             print(type(otp))
+#             print(type(votp))
+#             print(str(otp) + " " + votp)
+#             print(user_details[0])
+#             print(user_details[1])
+#             print(user_details[2])
+#             print(user_details[3])
+#             print(user_details[4])
+#             print(user_details[5])
+#             print(user_details[6])
+#
+#
+#             if otp == int(votp):
+#
+#                 res = """
+#                 <h3 style="color:green">Registration done Successfully..............</h3>
+#                 <a href="login">Login here</a>
+#                 """
+#                 return res
+#
+#
+#             else:
+#                 return "<h3 style='color:red'>Please enter Right Otp..</h3>"
+#     except:
+#         return "<h3 style='color:red'> Mr. " + user_details[0] + " you have already register with email " + \
+#                user_details[1] + "</h3>"
+#
 
 @app.route('/log', methods=['GET', 'POST'])
 def log():
+    print("if")
     if (request.method == 'POST'):
         form = request.form
         print(type(form))
@@ -394,22 +390,23 @@ def log():
             password1 = record[0][2]
             mobile = record[0][3]
             state = record[0][4]
-            gender = record[0][5]
-            dob = record[0][6]
-            address = record[0][7]
+
+
+            address = record[0][5]
             print(record[0][1])
-            print(record[0][7])
+            print(record[0][5])
 
             if (password == password1):
+                print("416")
                 res = make_response(render_template("home.html", name=name, email=email))
                 res.set_cookie("email", email)
                 res.set_cookie("name", name)
 
                 res.set_cookie("mobile", mobile)
                 res.set_cookie("state", state)
-                res.set_cookie("gender", gender)
+
                 res.set_cookie("address", address)
-                res.set_cookie("dob", dob)
+
 
                 return res
             else:
@@ -477,7 +474,6 @@ def marichipoina():
 @app.route('/newpass', methods=['POST', 'GET'])
 def new_pass():
     if (request.method == 'POST'):
-
         new_pass = request.form['newpassword']
         c_pass = request.form['cpassword']
         if (new_pass == c_pass):
